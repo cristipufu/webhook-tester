@@ -34,7 +34,7 @@ const renderWebhooks = (webhooks) => {
 const showWebhookDetails = (index, webhooks) => {
     const selectedWebhook = webhooks[index];
     updateExampleCommands(selectedWebhook.url);
-    activeWebhookUrl.textContent = `⚡ ${selectedWebhook.url}`;
+    activeWebhookUrl.textContent = selectedWebhook.url;
 
     if (selectedWebhook.requests.length === 0) {
         showWaitingForEvents();
