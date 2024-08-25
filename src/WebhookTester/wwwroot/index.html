@@ -3,7 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Webhook Tester</title>
+    <title>Tunnelite Webhooks - Fast and Secure Webhook Testing Tool</title>
+    <meta name="description" content="Tunnelite Webhooks is a free, real-time webhook testing tool. Test, inspect, and debug webhooks easily with our privacy-focused platform. No sign-up required!">
+    <meta name="keywords" content="webhook, webhook tester, webhook debugger, API testing, tunnelite, real-time webhook, developer tools">
+    <meta name="author" content="Tunnelite">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://webhooks.tunnelite.com/">
+    <meta property="og:title" content="Tunnelite Webhooks - Fast, Secure Webhook Testing Tool">
+    <meta property="og:description" content="Test and debug webhooks in real-time with our free, privacy-focused platform. No sign-up required!">
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://webhooks.tunnelite.com/">
+    <meta property="twitter:title" content="Tunnelite Webhooks - Fast, Secure Webhook Testing Tool">
+    <meta property="twitter:description" content="Test and debug webhooks in real-time with our free, privacy-focused platform. No sign-up required!">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
@@ -11,16 +22,29 @@
     <header>
         <div class="logo">Webhook Tester</div>
         <nav>
-            <a href="https://github.com/your-repo" target="_blank">GitHub</a>
+            <a href="https://github.com/cristipufu/webhook-tester" target="_blank" aria-label="GitHub repository">
+                <svg class="github-logo" viewBox="0 0 16 16" width="24" height="24" aria-hidden="true">
+                    <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path>
+                </svg>
+            </a>
         </nav>
     </header>
 
     <div class="app-container">
         <div class="sidebar webhooks-sidebar">
-            <button id="add-webhook">Add New Hook</button>
-            <ul id="webhook-list" class="webhook-list">
-                <!-- Webhooks will be displayed here -->
-            </ul>
+            <div class="sidebar-top">
+                <button id="add-webhook">New webhook</button>
+            </div>
+            <div class="sidebar-scroll">
+                <ul id="webhook-list" class="webhook-list">
+                    <!-- Webhooks will be displayed here -->
+                </ul>
+            </div>
+            <div class="sidebar-bottom">
+                <div class="tunnelite-info">
+                    <p>Use <a href="https://tunnelite.com" target="_blank" rel="noopener noreferrer">tunnelite.com</a> to tunnel requests to your local environment.</p>
+                </div>
+            </div>
         </div>
 
         <div class="main-content">
@@ -50,16 +74,7 @@
                         </ul>
                     </div>
                     <div id="details-container" class="details">
-                        <div class="section">
-                            <h3>Method</h3>
-                            <pre id="request-method"></pre>
-                        </div>
-                        <div class="section">
-                            <h3>Headers</h3>
-                            <table id="request-headers" class="headers-table"></table>
-                        </div>
-                        <div class="section">
-                            <h3>Body</h3>
+                        <div class="section section-body">
                             <div class="body-tabs">
                                 <button class="tab-btn active" data-tab="raw">Raw</button>
                                 <button class="tab-btn" data-tab="json">JSON</button>
@@ -68,17 +83,21 @@
                                 <pre id="request-body-raw" class="code-example active"></pre>
                                 <div id="request-body-json" class="code-example json-viewer"></div>
                             </div>
-                            <button id="copy-body" class="copy-btn">Copy Body</button>
+                            <button id="copy-body" class="copy-btn">Copy Request Body</button>
+                        </div>
+                        <div class="section">
+                            <table id="request-headers" class="headers-table"></table>
                         </div>
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 
     <footer>
-        &copy; 2024 Webhook Tester. Open source on
-        <a href="https://github.com/your-repo" target="_blank">GitHub</a>.
+        &copy; 2024 Tunnelite. Open source on
+        <a href="https://github.com/cristipufu/webhook-tester" target="_blank">GitHub</a>.
     </footer>
 
     <div id="copy-popup" class="copy-popup">Copied!</div>

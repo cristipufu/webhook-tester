@@ -2,7 +2,6 @@
 
 const webhookList = document.getElementById('webhook-list');
 const requestList = document.getElementById('request-list');
-const requestMethodPre = document.getElementById('request-method');
 const requestHeadersTable = document.getElementById('request-headers');
 const requestBodyPre = document.getElementById('request-body-raw');
 const waitingForEvents = document.getElementById('waiting-for-events');
@@ -35,7 +34,7 @@ const renderWebhooks = (webhooks) => {
 const showWebhookDetails = (index, webhooks) => {
     const selectedWebhook = webhooks[index];
     updateExampleCommands(selectedWebhook.url);
-    activeWebhookUrl.textContent = selectedWebhook.url;
+    activeWebhookUrl.textContent = `⚡ ${selectedWebhook.url}`;
 
     if (selectedWebhook.requests.length === 0) {
         showWaitingForEvents();
@@ -69,11 +68,11 @@ const showRequests = (webhook) => {
             second: '2-digit'
         });
         li.innerHTML = `
+            <span class="request-method ${request.method.toLowerCase()}">${request.method}</span>
             <span class="request-timestamp">
                 <span class="request-date">${formattedDate}</span>
                 <span class="request-time">${formattedTime}</span>
             </span>
-            <span class="request-method ${request.method.toLowerCase()}">${request.method}</span>
         `;
         li.onclick = () => showRequestDetails(request);
         requestList.appendChild(li);
@@ -81,7 +80,6 @@ const showRequests = (webhook) => {
 };
 
 const showRequestDetails = (request) => {
-    requestMethodPre.textContent = request.method;
     renderHeadersTable(request.headers);
 
     const rawBody = request.body;
@@ -138,18 +136,33 @@ const formatJSON = (obj) => {
 
 const renderHeadersTable = (headers) => {
     requestHeadersTable.innerHTML = `
-        <tr>
-            <th>Header</th>
-            <th>Value</th>
-        </tr>
+        <thead>
+            <tr>
+                <th>Header</th>
+                <th>Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            ${Object.entries(headers)
+            .map(([key, value]) => `
+                    <tr>
+                        <td><span class="header-key">${escapeHtml(key)}</span></td>
+                        <td><span class="header-value">${escapeHtml(value)}</span></td>
+                    </tr>
+                `)
+            .join('')}
+        </tbody>
     `;
-
-    for (const [key, value] of Object.entries(headers)) {
-        const row = requestHeadersTable.insertRow();
-        row.insertCell(0).textContent = key;
-        row.insertCell(1).textContent = value;
-    }
 };
+
+const escapeHtml = (unsafe) => {
+    return unsafe
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
 
 const copyToClipboard = (text) => {
     navigator.clipboard.writeText(text).then(() => {

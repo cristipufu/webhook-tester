@@ -14,21 +14,9 @@ app.UseHttpsRedirection();
 
 app.UseStaticFiles();
 
-app.MapGet("/", async (HttpContext context, ILogger<Program> logger) =>
-{
-    var filePath = Path.Combine(app.Environment.WebRootPath, "index.html");
+app.UseFavicon();
 
-    if (File.Exists(filePath))
-    {
-        context.Response.ContentType = "text/html";
-        await context.Response.SendFileAsync(filePath);
-    }
-    else
-    {
-        context.Response.StatusCode = StatusCodes.Status404NotFound;
-        await context.Response.WriteAsync("Index page not found");
-    }
-});
+app.UseIndex();
 
 var supportedMethods = new[] { "GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS", "HEAD" };
 

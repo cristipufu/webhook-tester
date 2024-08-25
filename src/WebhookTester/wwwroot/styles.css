@@ -1,5 +1,5 @@
 ﻿:root {
-    --primary-color: #007aff;
+    --primary-color: #4a90e2;
     --background-color: #f5f5f7;
     --text-color: #333;
     --border-color: #e0e0e0;
@@ -36,8 +36,8 @@ header {
     header nav a {
         color: #fff;
         text-decoration: none;
-        margin-left: 20px;
-        font-size: 16px;
+        display: flex;
+        align-items: center;
         transition: opacity 0.3s ease;
     }
 
@@ -45,34 +45,91 @@ header {
             opacity: 0.8;
         }
 
+.github-logo {
+    fill: currentColor;
+}
+
 .app-container {
     display: flex;
     flex: 1;
     width: 100%;
-    height: calc(100% - 60px);
+    height: calc(100% - 100px);
 }
 
 .sidebar {
     background-color: #ffffff;
     border-right: 1px solid var(--border-color);
-    padding: 20px;
+    padding: 10px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     display: flex;
     flex-direction: column;
-    gap: 20px;
     overflow-y: auto;
 }
 
 .webhooks-sidebar {
+    display: flex;
+    flex-direction: column;
     width: 300px;
+    height: 100%; /* Ensure it takes full height */
+    background-color: #ffffff;
+    border-right: 1px solid var(--border-color);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
+
+.sidebar-scroll {
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+.sidebar-bottom {
+    padding: 10px;
+    border-top: 1px solid var(--border-color);
+    padding-bottom: 20px;
+}
+
+.webhook-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#add-webhook {
+    width: 100%;
+}
+
+.tunnelite-info {
+    background-color: #f0f8ff;
+    border: 1px solid #b0d4ff;
+    padding: 10px;
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+    .tunnelite-info h3 {
+        margin: 0 0 5px 0;
+        color: #0066cc;
+        font-size: 14px;
+    }
+
+    .tunnelite-info p {
+        margin: 0;
+    }
+
+    .tunnelite-info a {
+        color: #0066cc;
+        text-decoration: none;
+        font-weight: 600;
+    }
+
+        .tunnelite-info a:hover {
+            text-decoration: underline;
+        }
 
 .sidebar button:not(.remove-btn) {
     padding: 12px 20px;
     background-color: var(--primary-color);
     color: #fff;
     border: none;
-    border-radius: 8px;
     cursor: pointer;
     font-size: 16px;
     transition: background-color 0.3s ease;
@@ -83,20 +140,12 @@ header {
         background-color: #005fcc;
     }
 
-.webhook-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    overflow-y: auto;
-}
-
     .webhook-list li {
         display: flex;
         justify-content: space-between;
         align-items: center;
         padding: 10px 15px;
-        border-radius: 8px;
-        margin-bottom: 10px;
+        margin-top: 10px;
         background-color: #f9f9f9;
         cursor: pointer;
         transition: background-color 0.2s ease;
@@ -153,8 +202,7 @@ header {
 }
 
 .active-webhook-header {
-    padding: 20px;
-    background-color: #fff;
+    padding: 10px;
     border-bottom: 1px solid var(--border-color);
     display: flex;
     align-items: center;
@@ -163,9 +211,9 @@ header {
 
 #active-webhook-url {
     font-family: monospace;
-    background-color: #f0f0f0;
-    padding: 10px;
-    border-radius: 4px;
+    font-weight: bolder;
+    font-size: larger;
+    padding: 12.5px;
     flex-grow: 1;
     margin-right: 10px;
     word-break: break-all;
@@ -178,10 +226,8 @@ header {
     cursor: pointer;
     font-size: 12px;
     padding: 6px 12px;
-    border-radius: 4px;
     transition: all 0.3s ease;
     font-weight: 600;
-    margin: 5px 0;
 }
 
     .copy-btn:hover {
@@ -264,7 +310,6 @@ header {
     width: 300px;
     border-right: 1px solid var(--border-color);
     overflow-y: auto;
-    padding: 20px;
 }
 
 .request-list {
@@ -277,7 +322,7 @@ header {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 10px 15px;
+        padding: 10px 25px;
         border-bottom: 1px solid var(--border-color);
         cursor: pointer;
         transition: background-color 0.2s ease;
@@ -291,15 +336,9 @@ header {
             background-color: var(--hover-color);
         }
 
-.request-timestamp {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-}
-
 .request-date {
     font-weight: bold;
-    font-size: 0.9em;
+    font-size: 0.8em;
 }
 
 .request-time {
@@ -308,9 +347,10 @@ header {
 }
 
 .request-method {
-    padding: 3px 8px;
-    border-radius: 12px;
-    font-size: 0.8em;
+    width: 40px;
+    text-align: center;
+    padding: 3px 5px;
+    font-size: 0.7em;
     font-weight: bold;
     text-transform: uppercase;
 }
@@ -347,7 +387,6 @@ header {
 
 .details {
     flex: 1;
-    padding: 20px;
     overflow-y: auto;
 }
 
@@ -363,14 +402,9 @@ header {
         color: var(--text-color);
     }
 
-    .details .section {
-        margin-bottom: 20px;
-    }
-
     .details pre, .json-viewer {
         background-color: #fff;
         padding: 15px;
-        border-radius: 8px;
         font-size: 14px;
         color: #555;
         white-space: pre-wrap;
@@ -381,26 +415,47 @@ header {
 
 .headers-table {
     width: 100%;
-    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 12px; /* Reduced from 14px */
+    color: #333;
     background-color: #fff;
-    border-radius: 8px;
     overflow: hidden;
 }
 
     .headers-table th, .headers-table td {
-        padding: 10px 15px;
+        padding: 8px 12px;
         text-align: left;
-        border-bottom: 1px solid var(--border-color);
+        border-bottom: 1px solid #f0f0f0;
     }
 
     .headers-table th {
-        background-color: #f0f0f0;
         font-weight: 600;
+        color: #666;
+        background-color: #f9f9f9;
+        border-bottom: 2px solid #e0e0e0;
     }
+
+    .headers-table tr:last-child td {
+        border-bottom: none;
+    }
+
+    .headers-table tr:hover {
+        background-color: #f5f5f5;
+    }
+
+.header-key {
+    font-weight: 600;
+    color: #0066cc;
+}
+
+.header-value {
+    font-family: monospace;
+    word-break: break-all;
+}
 
 .body-tabs {
     display: flex;
-    margin-bottom: 10px;
 }
 
     .body-tabs .tab-btn {
@@ -409,7 +464,6 @@ header {
         padding: 8px 16px;
         cursor: pointer;
         transition: background-color 0.3s ease;
-        border-radius: 4px 4px 0 0;
     }
 
         .body-tabs .tab-btn.active {
@@ -460,8 +514,8 @@ footer {
     background-color: var(--background-color);
     padding: 10px 20px;
     text-align: center;
-    color: #888;
     font-size: 14px;
+    border-top: 1px solid #ddd;
     box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.05);
 }
 
@@ -491,6 +545,8 @@ footer {
     .copy-popup.show {
         opacity: 1;
     }
+
+
 
 @media (max-width: 1024px) {
     .app-container {
