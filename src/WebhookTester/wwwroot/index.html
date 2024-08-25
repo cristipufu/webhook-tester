@@ -1,0 +1,89 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Webhook Tester</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="logo">Webhook Tester</div>
+        <nav>
+            <a href="https://github.com/your-repo" target="_blank">GitHub</a>
+        </nav>
+    </header>
+
+    <div class="app-container">
+        <div class="sidebar webhooks-sidebar">
+            <button id="add-webhook">Add New Hook</button>
+            <ul id="webhook-list" class="webhook-list">
+                <!-- Webhooks will be displayed here -->
+            </ul>
+        </div>
+
+        <div class="main-content">
+            <div class="active-webhook-header">
+                <div id="active-webhook-url"></div>
+                <button id="copy-active-webhook-url" class="copy-btn">Copy Webhook URL</button>
+            </div>
+            <div id="waiting-for-events" class="waiting">
+                <div class="animal-art">🎮</div>
+                <h2>Waiting for requests...</h2>
+                <p>Send a POST request to your webhook URL using one of the following methods:</p>
+                <div class="tabs">
+                    <button class="tab-btn active" data-tab="curl">cURL</button>
+                    <button class="tab-btn" data-tab="powershell">PowerShell</button>
+                </div>
+                <div class="tab-content">
+                    <pre id="curl-example" class="code-example active"></pre>
+                    <pre id="powershell-example" class="code-example"></pre>
+                </div>
+                <button id="copy-example" class="copy-btn">Copy Command</button>
+            </div>
+            <div id="requests-container" class="requests-container" style="display: none;">
+                <div class="requests-content">
+                    <div class="requests-sidebar">
+                        <ul id="request-list" class="request-list">
+                            <!-- Requests will be displayed here -->
+                        </ul>
+                    </div>
+                    <div id="details-container" class="details">
+                        <div class="section">
+                            <h3>Method</h3>
+                            <pre id="request-method"></pre>
+                        </div>
+                        <div class="section">
+                            <h3>Headers</h3>
+                            <table id="request-headers" class="headers-table"></table>
+                        </div>
+                        <div class="section">
+                            <h3>Body</h3>
+                            <div class="body-tabs">
+                                <button class="tab-btn active" data-tab="raw">Raw</button>
+                                <button class="tab-btn" data-tab="json">JSON</button>
+                            </div>
+                            <div class="body-tab-content">
+                                <pre id="request-body-raw" class="code-example active"></pre>
+                                <div id="request-body-json" class="code-example json-viewer"></div>
+                            </div>
+                            <button id="copy-body" class="copy-btn">Copy Body</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2024 Webhook Tester. Open source on
+        <a href="https://github.com/your-repo" target="_blank">GitHub</a>.
+    </footer>
+
+    <div id="copy-popup" class="copy-popup">Copied!</div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.min.js"></script>
+    <script type="module" src="js/app.js"></script>
+</body>
+</html>
