@@ -17,13 +17,62 @@ const getOrCreateClientId = () => {
     return clientId;
 };
 
+const createSignalRConnection = (clientId) => {
+    return new signalR.HubConnectionBuilder()
+        .withUrl(`/hub?clientId=${clientId}`)
+        .withAutomaticReconnect([0, 2000, 10000, 30000, null]) // Reconnect intervals
+        .configureLogging(signalR.LogLevel.Information)
+        .build();
+};
+
+const startSignalRConnection = async (connection) => {
+    try {
+        await connection.start();
+        console.log('Connected to SignalR');
+    } catch (err) {
+        console.error('SignalR Connection Error: ', err);
+        setTimeout(() => startSignalRConnection(connection), 5000);
+    }
+};
+
+const updateConnectionStatus = (status) => {
+    const popup = document.getElementById('connection-status-popup');
+    const statusText = document.getElementById('connection-status-text');
+    const statusIcon = document.getElementById('connection-status-icon');
+
+    if (popup && statusText && statusIcon) {
+        statusText.textContent = status;
+
+        popup.classList.remove('connection-status-connected', 'connection-status-reconnecting', 'connection-status-disconnected');
+
+        switch (status) {
+            case 'Connected':
+                popup.classList.add('connection-status-connected');
+                break;
+            case 'Reconnecting...':
+                popup.classList.add('connection-status-reconnecting');
+                break;
+            case 'Disconnected':
+                popup.classList.add('connection-status-disconnected');
+                break;
+        }
+
+        popup.classList.add('show');
+
+        setTimeout(() => {
+            popup.classList.remove('show');
+        }, 5000);
+    }
+};
+
 const init = async () => {
     await openDB();
     const clientId = getOrCreateClientId();
+    const connection = createSignalRConnection(clientId);
 
-    const connection = new signalR.HubConnectionBuilder()
-        .withUrl(`/hub?clientId=${clientId}`)
-        .build();
+    connection.onreconnecting(() => updateConnectionStatus('Reconnecting...'));
+    connection.onreconnected(() => updateConnectionStatus('Connected'));
+    connection.onclose(() => updateConnectionStatus('Disconnected'));
 
     connection.on('ReceiveBaseUrl', async (baseUrl) => {
         console.log('Received base URL:', baseUrl);
@@ -43,10 +92,10 @@ const init = async () => {
         addRequestToWebhook(webhookRequest.slug, request);
     });
 
-    await connection.start();
+    await startSignalRConnection(connection);
     console.log('Connected to SignalR with clientId:', clientId);
-
     setSignalRConnection(connection);
+    updateConnectionStatus('Connected');
 
     const addWebhookButton = document.getElementById('add-webhook');
     addWebhookButton.addEventListener('click', createWebhook);
