@@ -3,9 +3,10 @@ using System.Collections.Concurrent;
 
 namespace WebhookTester;
 
-public class WebhookHub(WebhookStore webhookStore) : Hub
+public class WebhookHub(WebhookStore webhookStore, IConfiguration configuration) : Hub
 {
     private readonly WebhookStore _webhookStore = webhookStore;
+    private readonly IConfiguration _configuration = configuration;
 
     public override async Task OnConnectedAsync()
     {
@@ -13,9 +14,14 @@ public class WebhookHub(WebhookStore webhookStore) : Hub
 
         _webhookStore.Connections.AddOrUpdate(clientId, Context.ConnectionId, (key, oldValue) => Context.ConnectionId);
 
-        var httpContext = Context.GetHttpContext();
+        var baseUrl = _configuration["BaseUrl"];
 
-        var baseUrl = $"{httpContext!.Request.Scheme}://{httpContext.Request.Host}";
+        if (string.IsNullOrEmpty(baseUrl))
+        {
+            var httpContext = Context.GetHttpContext();
+
+            baseUrl = $"{httpContext!.Request.Scheme}://{httpContext.Request.Host}";
+        }
 
         await Clients.Caller.SendAsync("ReceiveBaseUrl", baseUrl);
 

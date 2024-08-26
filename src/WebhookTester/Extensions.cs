@@ -15,6 +15,7 @@ public static class Extensions
         {
             signalRBuilder.AddAzureSignalR(opt =>
             {
+                opt.ApplicationName = "WebhooksTester";
                 opt.ConnectionString = signalRConnectionString;
             });
         }

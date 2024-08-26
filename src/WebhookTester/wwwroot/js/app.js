@@ -20,8 +20,9 @@ const getOrCreateClientId = () => {
 const createSignalRConnection = (clientId) => {
     return new signalR.HubConnectionBuilder()
         .withUrl(`/hub?clientId=${clientId}`)
-        .withAutomaticReconnect([0, 2000, 10000, 30000, null]) // Reconnect intervals
+        .withAutomaticReconnect([0, 2000, 5000, 10000, 15000, 30000, null]) // Reconnect intervals
         .configureLogging(signalR.LogLevel.Information)
+        .withHubProtocol(new signalR.protocols.msgpack.MessagePackHubProtocol())
         .build();
 };
 
@@ -82,14 +83,15 @@ const init = async () => {
 
     connection.on('NewRequest', (webhookRequest) => {
         console.log('New Webhook Request:', webhookRequest);
+
         const request = {
-            id: webhookRequest.id,
-            timestamp: new Date(webhookRequest.timestamp).toISOString(),
-            method: webhookRequest.httpMethod,
-            headers: webhookRequest.httpHeaders,
-            body: webhookRequest.httpBody
+            id: webhookRequest.Id,
+            timestamp: new Date(webhookRequest.Timestamp).toISOString(),
+            method: webhookRequest.HttpMethod,
+            headers: webhookRequest.HttpHeaders,
+            body: webhookRequest.HttpBody
         };
-        addRequestToWebhook(webhookRequest.slug, request);
+        addRequestToWebhook(webhookRequest.Slug, request);
     });
 
     await startSignalRConnection(connection);
