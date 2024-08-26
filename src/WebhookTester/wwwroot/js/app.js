@@ -76,6 +76,8 @@ const init = async () => {
     connection.onclose(async (error) => {
         updateConnectionStatus('Disconnected')
         await startSignalRConnection(connection);
+        setSignalRConnection(connection);
+        updateConnectionStatus('Connected');
     });
 
     connection.on('ReceiveBaseUrl', async (baseUrl) => {
