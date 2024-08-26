@@ -47,7 +47,7 @@ app.MapMethods(
             Slug = slug,
             Timestamp = DateTime.UtcNow,
             HttpMethod = context.Request.Method,
-            HttpHeaders = context.Request.Headers.ToDictionary(h => h.Key, h => h.Value.ToString()),
+            HttpHeaders = context.Request.Headers.ToFiltered(),
             HttpBody = body,
         });
 

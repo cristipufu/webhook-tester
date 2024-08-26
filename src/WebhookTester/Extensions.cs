@@ -47,4 +47,30 @@ public static class Extensions
             }
         });
     }
+
+    public static IDictionary<string, string> ToFiltered(this IHeaderDictionary headers)
+    {
+        return headers
+            .Where(kvp => !ExcludedHeaders.Contains(kvp.Key))
+            .ToDictionary(h => h.Key, h => h.Value.ToString());
+    }
+
+    private static readonly HashSet<string> ExcludedHeaders = new(StringComparer.OrdinalIgnoreCase)
+    {
+        "Expect",
+        "Max-Forwards",
+        "X-ARR-LOG-ID",
+        "CLIENT-IP",
+        "DISGUISED-HOST",
+        "X-SITE-DEPLOYMENT-ID",
+        "WAS-DEFAULT-HOSTNAME",
+        "X-AppService-Proto",
+        "X-ARR-SSL",
+        "X-Forwarded-TlsVersion",
+        "X-Original-Proto",
+        "X-Original-URL",
+        "X-WAWS-Unencoded-URL",
+        "X-Client-Port",
+        "X-Original-For"
+    };
 }
