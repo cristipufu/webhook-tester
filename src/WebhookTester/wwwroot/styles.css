@@ -416,7 +416,7 @@ header {
         color: var(--text-color);
     }
 
-    .details pre, .json-viewer {
+    .details pre, .json-viewer, .form-data-viewer, .xml-viewer {
         background-color: #fff;
         padding: 15px;
         font-size: 14px;
@@ -523,6 +523,49 @@ header {
     .json-viewer .null {
         color: #808080;
     }
+
+.xml-viewer {
+    font-family: monospace;
+    font-size: 14px;
+    line-height: 1.5;
+    white-space: pre-wrap;
+}
+
+    .xml-viewer .xml-tag {
+        color: #881391;
+    }
+
+    .xml-viewer .xml-attribute {
+        color: #994500;
+    }
+
+    .xml-viewer .xml-attribute-value {
+        color: #1a1aa6;
+    }
+
+    .xml-viewer .xml-text {
+        color: #000;
+    }
+
+.form-data-viewer {
+    font-family: monospace;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+    .form-data-viewer .form-data-item {
+        margin-bottom: 5px;
+    }
+
+    .form-data-viewer .form-data-key {
+        color: #881391;
+        font-weight: bold;
+    }
+
+    .form-data-viewer .form-data-value {
+        color: #1a1aa6;
+    }
+
 
 footer {
     background-color: var(--background-color);

@@ -81,27 +81,53 @@ const showRequests = (webhook) => {
 
 const showRequestDetails = (request) => {
     renderHeadersTable(request.headers);
-
     const rawBody = request.body;
+
+    const getHeader = (headers, name) => {
+        const lowercaseName = name.toLowerCase();
+        const header = Object.keys(headers).find(h => h.toLowerCase() === lowercaseName);
+        return header ? headers[header] : null;
+    };
+
+    const contentType = (getHeader(request.headers, 'content-type') || '').toLowerCase();
     const rawTab = document.getElementById('request-body-raw');
-    const jsonTab = document.getElementById('request-body-json');
-    const jsonTabButton = document.querySelector('.body-tabs .tab-btn[data-tab="json"]');
+    const formattedTab = document.getElementById('request-body-formatted');
+    const formattedTabButton = document.querySelector('.body-tabs .tab-btn[data-tab="formatted"]');
 
     rawTab.textContent = rawBody;
 
-    try {
-        const jsonBody = JSON.parse(rawBody);
-        jsonTab.innerHTML = formatJSON(jsonBody);
-        jsonTabButton.style.display = 'inline-block';
-    } catch (e) {
-        jsonTab.innerHTML = '<p>Not valid JSON</p>';
-        jsonTabButton.style.display = 'none';
+    let formattedContent = '';
+    let displayFormatted = true;
+    let tabName = 'Formatted';
+
+    if (/^application\/json\b/.test(contentType)) {
+        try {
+            const jsonBody = JSON.parse(rawBody);
+            formattedContent = formatJSON(jsonBody);
+            tabName = 'JSON';
+        } catch (e) {
+            formattedContent = '<p>Invalid JSON</p>';
+            tabName = 'Invalid JSON';
+        }
+    } else if (/^(application|text)\/xml\b/.test(contentType)) {
+        formattedContent = formatXML(rawBody);
+        tabName = 'XML';
+    } else if (/^application\/x-www-form-urlencoded\b/.test(contentType)) {
+        formattedContent = formatFormData(rawBody);
+        tabName = 'Form Data';
+    } else if (/^text\/plain\b/.test(contentType)) {
+        formattedContent = `<pre>${escapeHTML(rawBody)}</pre>`;
+        tabName = 'Plain Text';
+    } else {
+        displayFormatted = false;
     }
 
-    // Set up tab switching for body content
+    formattedTab.innerHTML = formattedContent;
+    formattedTabButton.textContent = tabName;
+    formattedTabButton.style.display = displayFormatted ? 'inline-block' : 'none';
+
     const bodyTabs = document.querySelectorAll('.body-tabs .tab-btn');
     const bodyContents = document.querySelectorAll('.body-tab-content .code-example');
-
     bodyTabs.forEach(viewerTab => {
         viewerTab.addEventListener('click', () => {
             bodyTabs.forEach(t => t.classList.remove('active'));
@@ -112,8 +138,67 @@ const showRequestDetails = (request) => {
     });
 };
 
+const formatXML = (xml) => {
+    const parser = new DOMParser();
+    const xmlDoc = parser.parseFromString(xml, "text/xml");
+    const serializer = new XMLSerializer();
+    let formatted = '';
+    let indent = 0;
+
+    const format = (node) => {
+        if (node.nodeType === Node.ELEMENT_NODE) {
+            const nodeName = node.nodeName;
+            const attributes = Array.from(node.attributes)
+                .map(attr => `<span class="xml-attribute">${attr.name}</span>="<span class="xml-attribute-value">${attr.value}</span>"`)
+                .join(' ');
+
+            formatted += '  '.repeat(indent);
+            formatted += `&lt;<span class="xml-tag">${nodeName}</span>${attributes ? ' ' + attributes : ''}>`;
+
+            if (node.childNodes.length === 1 && node.childNodes[0].nodeType === Node.TEXT_NODE) {
+                formatted += `<span class="xml-text">${node.textContent}</span>`;
+                formatted += `&lt;/<span class="xml-tag">${nodeName}</span>&gt;\n`;
+            } else {
+                formatted += '\n';
+                indent++;
+                Array.from(node.childNodes).forEach(format);
+                indent--;
+                formatted += '  '.repeat(indent);
+                formatted += `&lt;/<span class="xml-tag">${nodeName}</span>&gt;\n`;
+            }
+        } else if (node.nodeType === Node.TEXT_NODE && node.textContent.trim()) {
+            formatted += '  '.repeat(indent);
+            formatted += `<span class="xml-text">${node.textContent.trim()}</span>\n`;
+        }
+    };
+
+    format(xmlDoc.documentElement);
+    return `<div class="xml-viewer">${formatted}</div>`;
+};
+
+const formatFormData = (formData) => {
+    const params = new URLSearchParams(formData);
+    let formatted = '<div class="form-data-viewer">';
+    for (const [key, value] of params) {
+        formatted += `<div class="form-data-item">`;
+        formatted += `<span class="form-data-key">${escapeHTML(key)}</span>: `;
+        formatted += `<span class="form-data-value">${escapeHTML(value)}</span>`;
+        formatted += `</div>`;
+    }
+    formatted += '</div>';
+    return formatted;
+};
+
+const escapeHTML = (str) => {
+    return str.replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+};
+
 const formatJSON = (obj) => {
-    return JSON.stringify(obj, null, 2)
+    return '<div class="json-viewer">' + JSON.stringify(obj, null, 2)
         .replace(/&/g, '&amp;')
         .replace(/</g, '&lt;')
         .replace(/>/g, '&gt;')
@@ -131,7 +216,7 @@ const formatJSON = (obj) => {
                 cls = 'null';
             }
             return `<span class="${cls}">${match}</span>`;
-        });
+        }) + '</div>';
 };
 
 const renderHeadersTable = (headers) => {
