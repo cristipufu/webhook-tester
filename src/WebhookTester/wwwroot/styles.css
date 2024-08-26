@@ -10,12 +10,26 @@ body {
     font-family: 'Inter', sans-serif;
     background-color: var(--background-color);
     color: var(--text-color);
+}
+
+html, body {
     margin: 0;
     padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+}
+
+body {
     display: flex;
     flex-direction: column;
-    height: 100vh;
-    overflow: hidden;
+    min-height: 100vh;
+}
+
+.app-container {
+    flex: 1;
+    display: flex;
+    width: 100%;
 }
 
 header {
@@ -634,5 +648,147 @@ footer {
 
     .requests-content {
         flex-direction: column;
+    }
+}
+
+@media (max-width: 768px) {
+    .app-container {
+        flex-direction: column;
+    }
+
+    .webhooks-sidebar {
+        box-sizing: border-box;
+    }
+    .webhooks-sidebar,
+    .requests-sidebar {
+        width: 100%;
+        max-height: 200px;
+        overflow-y: auto;
+        border-right: none;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    #zap {
+        display: none;
+    }
+    .requests-content {
+        flex-direction: column;
+    }
+
+    .main-content {
+        width: 100%;
+    }
+
+    .details {
+        padding: 10px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .copy-btn {
+        align-self: flex-end;
+    }
+
+    .headers-table {
+        font-size: 11px;
+        width: 100%;
+    }
+
+        .headers-table th,
+        .headers-table td {
+            padding: 6px 8px;
+        }
+
+    .body-tabs .tab-btn {
+        padding: 6px 12px;
+        font-size: 12px;
+    }
+
+    .code-example {
+        font-size: 12px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .json-viewer {
+        font-size: 12px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .waiting {
+        padding: 10px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .animal-art {
+        font-size: 36px;
+    }
+
+    .waiting h2 {
+        font-size: 18px;
+    }
+
+    .waiting p {
+        font-size: 14px;
+    }
+
+    .tab-btn {
+        padding: 8px 16px;
+        font-size: 12px;
+    }
+
+    .active-webhook-header {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 12px;
+    }
+
+    #active-webhook-url {
+        font-size: 12px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        padding: 8px;
+        background-color: #f8f9fa;
+        border: 1px solid #e9ecef;
+        margin-right: 0px;
+    }
+
+    #copy-active-webhook-url {
+        width: 100%;
+        margin-top: 8px;
+        padding: 10px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .webhook-list li {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .webhook-url {
+        margin-right: 0;
+        margin-bottom: 5px;
+    }
+
+    .remove-btn {
+        align-self: flex-end;
+    }
+
+    .connection-status-popup {
+        width: 90%;
+        transform: none;
+    }
+
+    .tab-content {
+        padding: 10px;
+    }
+
+    footer {
+        padding: 10px;
     }
 }
