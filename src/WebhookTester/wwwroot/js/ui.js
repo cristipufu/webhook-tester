@@ -82,24 +82,20 @@ const showRequests = (webhook) => {
 const showRequestDetails = (request) => {
     renderHeadersTable(request.headers);
     const rawBody = request.body;
-
     const getHeader = (headers, name) => {
         const lowercaseName = name.toLowerCase();
         const header = Object.keys(headers).find(h => h.toLowerCase() === lowercaseName);
         return header ? headers[header] : null;
     };
-
     const contentType = (getHeader(request.headers, 'content-type') || '').toLowerCase();
     const rawTab = document.getElementById('request-body-raw');
     const formattedTab = document.getElementById('request-body-formatted');
+    const rawTabButton = document.querySelector('.body-tabs .tab-btn[data-tab="raw"]');
     const formattedTabButton = document.querySelector('.body-tabs .tab-btn[data-tab="formatted"]');
-
     rawTab.textContent = rawBody;
-
     let formattedContent = '';
     let displayFormatted = true;
     let tabName = 'Formatted';
-
     if (/^application\/json\b/.test(contentType)) {
         try {
             const jsonBody = JSON.parse(rawBody);
@@ -121,10 +117,14 @@ const showRequestDetails = (request) => {
     } else {
         displayFormatted = false;
     }
-
     formattedTab.innerHTML = formattedContent;
     formattedTabButton.textContent = tabName;
     formattedTabButton.style.display = displayFormatted ? 'inline-block' : 'none';
+
+    const isFormattedTabActive = formattedTabButton.classList.contains('active');
+    if (!displayFormatted && isFormattedTabActive) {
+        rawTabButton.click();
+    }
 
     const bodyTabs = document.querySelectorAll('.body-tabs .tab-btn');
     const bodyContents = document.querySelectorAll('.body-tab-content .code-example');
