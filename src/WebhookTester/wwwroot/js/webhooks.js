@@ -50,11 +50,25 @@ const createWebhook = async () => {
 };
 
 const generateWebhookSlug = () => {
-    const colors = ['red', 'blue', 'green', 'yellow', 'purple', 'orange', 'pink', 'grey', 'white'];
-    const animals = ['dog', 'hawk', 'tiger', 'wolf', 'panther', 'dragon', 'falcon', 'panda', 'cat', 'bear', 'fox', 'mouse', 'rat', 'bird', 'pig', 'chicken', 'duck'];
-    const number = Math.floor(Math.random() * 1000);
-    const randomString = `${colors[Math.floor(Math.random() * colors.length)]}-${animals[Math.floor(Math.random() * animals.length)]}-${number}`;
-    return randomString;
+    const colors = [
+        'red', 'blue', 'green', 'yellow', 'purple', 'orange', 'pink', 'grey', 'white',
+        'black', 'brown', 'cyan', 'magenta', 'lime', 'teal', 'indigo', 'violet', 'gold',
+        'silver', 'bronze', 'maroon', 'navy', 'olive', 'aqua', 'turquoise', 'lavender'
+    ];
+
+    const animals = [
+        'dog', 'hawk', 'tiger', 'wolf', 'panther', 'dragon', 'falcon', 'panda', 'cat',
+        'bear', 'fox', 'mouse', 'rat', 'bird', 'pig', 'chicken', 'duck', 'elephant',
+        'lion', 'giraffe', 'zebra', 'koala', 'rhino', 'hippo', 'monkey', 'gorilla',
+        'penguin', 'dolphin', 'whale', 'shark', 'octopus', 'eagle', 'owl', 'bat',
+        'squirrel', 'rabbit', 'deer', 'moose', 'bison', 'coyote', 'leopard', 'jaguar'
+    ];
+
+    const number = Math.floor(Math.random() * 1000000); // 6-digit number (0 to 999999)
+    const randomColor = colors[Math.floor(Math.random() * colors.length)];
+    const randomAnimal = animals[Math.floor(Math.random() * animals.length)];
+
+    return `${randomColor}-${randomAnimal}-${number.toString().padStart(6, '0')}`;
 };
 
 const addRequestToWebhook = (slug, request) => {
