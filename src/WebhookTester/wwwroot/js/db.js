@@ -22,7 +22,7 @@ const openDB = () => {
     });
 };
 
-const saveWebhooks = (webhooks) => {
+const saveWebhooksInDb = (webhooks) => {
     return new Promise((resolve, reject) => {
         const transaction = db.transaction([storeName], 'readwrite');
         const store = transaction.objectStore(storeName);
@@ -36,7 +36,7 @@ const saveWebhooks = (webhooks) => {
     });
 };
 
-const getWebhooks = () => {
+const getWebhooksFromDb = () => {
     return new Promise((resolve, reject) => {
         const transaction = db.transaction([storeName], 'readonly');
         const store = transaction.objectStore(storeName);
@@ -47,7 +47,7 @@ const getWebhooks = () => {
     });
 };
 
-const removeWebhook = (slug) => {
+const removeWebhookFromDb = (slug) => {
     return new Promise((resolve, reject) => {
         const transaction = db.transaction([storeName], 'readwrite');
         const store = transaction.objectStore(storeName);
@@ -58,4 +58,4 @@ const removeWebhook = (slug) => {
     });
 };
 
-export { openDB, saveWebhooks, getWebhooks, removeWebhook };
+export { openDB, saveWebhooksInDb, getWebhooksFromDb, removeWebhookFromDb };

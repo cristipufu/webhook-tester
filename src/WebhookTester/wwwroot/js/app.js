@@ -1,5 +1,13 @@
 ﻿import { openDB } from './db.js';
-import { initWebhooks, createWebhook, addRequestToWebhook, setSignalRConnection, setBaseUrl } from './webhooks.js';
+import {
+    initWebhooks,
+    createWebhook,
+    addRequestToWebhook,
+    setSignalRConnection,
+    setBaseUrl,
+    hideLoadingScreen
+} from './ui.js';
+
 
 const generateGuid = () => {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
@@ -84,6 +92,7 @@ const init = async () => {
         console.log('Received base URL:', baseUrl);
         setBaseUrl(baseUrl);
         await initWebhooks();
+        hideLoadingScreen();
     });
 
     connection.on('NewRequest', (webhookRequest) => {
