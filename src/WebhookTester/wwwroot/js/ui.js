@@ -17,6 +17,8 @@ const copyExampleButton = document.getElementById('copy-example');
 const copyActiveWebhookUrlButton = document.getElementById('copy-active-webhook-url');
 const activeWebhookUrl = document.getElementById('active-webhook-url');
 const copyBodyButton = document.getElementById('copy-body');
+const confirmDialog = document.getElementById('confirm-dialog');
+const confirmDialogSlug = document.getElementById('confirm-dialog-slug');
 
 const setSignalRConnection = (connection) => {
     signalRConnection = connection;
@@ -93,6 +95,23 @@ const addRequestToWebhook = (slug, request) => {
     }
 };
 
+const confirmRemoveWebhook = (slug) => {
+    if (!confirmDialog || typeof confirmDialog.showModal !== 'function') {
+        if (window.confirm(`Delete webhook ${slug}?`)) {
+            removeWebhook(slug);
+        }
+        return;
+    }
+    confirmDialogSlug.textContent = slug;
+    confirmDialog.returnValue = '';
+    confirmDialog.addEventListener('close', () => {
+        if (confirmDialog.returnValue === 'confirm') {
+            removeWebhook(slug);
+        }
+    }, { once: true });
+    confirmDialog.showModal();
+};
+
 const removeWebhook = async (slug) => {
     webhooks = webhooks.filter(webhook => webhook.slug !== slug);
     await removeWebhookFromDb(slug);
@@ -115,7 +134,7 @@ const renderWebhooks = (webhooks) => {
         li.onclick = () => showWebhookDetails(index, webhooks);
         li.querySelector('.remove-btn').onclick = (event) => {
             event.stopPropagation();
-            removeWebhook(webhook.slug);
+            confirmRemoveWebhook(webhook.slug);
         };
         webhookList.appendChild(li);
     });
