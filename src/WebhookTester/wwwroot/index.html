@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -7,31 +7,54 @@
     <meta name="description" content="Tunnelite Webhooks is a free, real-time webhook testing tool. Test, inspect, and debug webhooks easily with our privacy-focused platform. No sign-up required!">
     <meta name="keywords" content="webhook, webhook tester, webhook debugger, API testing, tunnelite, real-time webhook, developer tools">
     <meta name="author" content="Tunnelite">
+    <meta name="theme-color" content="#f8fafc">
+    <meta name="color-scheme" content="light">
+    <link rel="canonical" href="https://webhooks.tunnelite.com/">
+    <link rel="icon" href="/favicon.ico" sizes="48x48">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%233b82f6'/%3E%3Cstop offset='1' stop-color='%2322d3ee'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='14' fill='url(%23g)'/%3E%3Cpath d='M15 20l8 26 9-18 9 18 8-26' fill='none' stroke='%23fff' stroke-width='7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
     <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Tunnelite">
     <meta property="og:url" content="https://webhooks.tunnelite.com/">
     <meta property="og:title" content="Tunnelite Webhooks - Fast, Secure Webhook Testing Tool">
     <meta property="og:description" content="Test and debug webhooks in real-time with our free, privacy-focused platform. No sign-up required!">
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://webhooks.tunnelite.com/">
-    <meta property="twitter:title" content="Tunnelite Webhooks - Fast, Secure Webhook Testing Tool">
-    <meta property="twitter:description" content="Test and debug webhooks in real-time with our free, privacy-focused platform. No sign-up required!">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Tunnelite Webhooks - Fast, Secure Webhook Testing Tool">
+    <meta name="twitter:description" content="Test and debug webhooks in real-time with our free, privacy-focused platform. No sign-up required!">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="bundle.min.css">
     <script defer data-domain="webhooks.tunnelite.com" src="https://plausible.io/js/script.js"></script>
 </head>
 <body>
 
     <div id="loading-overlay" class="loading-overlay">
-        <div class="loading-emoji">⚡</div>
+        <div class="loading-emoji">
+            <svg class="logo-mark" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <defs><linearGradient id="lg-loading" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3b82f6"/><stop offset="1" stop-color="#22d3ee"/></linearGradient></defs>
+                <rect width="64" height="64" rx="14" fill="url(#lg-loading)"/>
+                <path d="M15 20l8 26 9-18 9 18 8-26" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </div>
+        <p class="loading-text">Connecting…</p>
     </div>
 
     <header>
-        <div class="logo">Webhook Tester</div>
+        <div class="logo">
+            <svg class="logo-mark" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <defs><linearGradient id="lg-nav" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3b82f6"/><stop offset="1" stop-color="#22d3ee"/></linearGradient></defs>
+                <rect width="64" height="64" rx="14" fill="url(#lg-nav)"/>
+                <path d="M15 20l8 26 9-18 9 18 8-26" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>Webhook Tester</span>
+            <a class="by" href="https://tunnelite.com" target="_blank" rel="noopener noreferrer">by Tunnelite</a>
+        </div>
         <nav>
-            <a href="https://github.com/cristipufu/webhook-tester" target="_blank" aria-label="GitHub repository">
-                <svg class="github-logo" viewBox="0 0 16 16" width="24" height="24" aria-hidden="true">
+            <a class="btn btn-ghost btn-sm" href="https://github.com/cristipufu/webhook-tester" target="_blank" rel="noopener noreferrer" aria-label="GitHub repository">
+                <svg class="github-logo" viewBox="0 0 16 16" width="18" height="18" aria-hidden="true">
                     <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path>
                 </svg>
+                <span>GitHub</span>
             </a>
         </nav>
     </header>
@@ -39,7 +62,10 @@
     <div class="app-container">
         <div class="sidebar webhooks-sidebar">
             <div class="sidebar-top">
-                <button id="add-webhook">New webhook</button>
+                <button id="add-webhook" class="btn btn-primary">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+                    New webhook
+                </button>
             </div>
             <div class="sidebar-scroll">
                 <ul id="webhook-list" class="webhook-list">
@@ -48,6 +74,7 @@
             </div>
             <div class="sidebar-bottom">
                 <div class="tunnelite-info">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8z"/></svg>
                     <p>Use <a href="https://tunnelite.com" target="_blank" rel="noopener noreferrer">tunnelite.com</a> to proxy requests to your local environment.</p>
                 </div>
             </div>
@@ -55,22 +82,42 @@
 
         <div class="main-content">
             <div class="active-webhook-header">
-                <span id="zap">⚡</span><div id="active-webhook-url"></div>
-                <button id="copy-active-webhook-url" class="copy-btn">Copy Webhook URL</button>
+                <span id="zap" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8z"/></svg>
+                </span>
+                <div id="active-webhook-url"></div>
+                <button id="copy-active-webhook-url" class="copy-btn btn btn-primary">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                    Copy Webhook URL
+                </button>
             </div>
             <div id="waiting-for-events" class="waiting">
-                <div class="animal-art">🎮</div>
-                <h2>Waiting for requests...</h2>
-                <p>Send a POST request to your webhook URL using one of the following methods:</p>
-                <div class="tabs">
-                    <button class="tab-btn active" data-tab="curl">cURL</button>
-                    <button class="tab-btn" data-tab="powershell">PowerShell</button>
+                <div class="waiting-intro">
+                    <div class="animal-art" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></svg>
+                    </div>
+                    <h2>Waiting for requests<span class="ellipsis" aria-hidden="true"></span></h2>
+                    <p>Send a POST request to your webhook URL using one of the following methods:</p>
+                    <button id="copy-example" class="copy-btn btn btn-ghost">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                        Copy Command
+                    </button>
                 </div>
-                <div class="tab-content">
-                    <pre id="curl-example" class="code-example active"></pre>
-                    <pre id="powershell-example" class="code-example"></pre>
+                <div class="example">
+                    <div class="terminal">
+                        <div class="terminal-bar">
+                            <span class="dot" aria-hidden="true"></span><span class="dot" aria-hidden="true"></span><span class="dot" aria-hidden="true"></span>
+                            <div class="tabs" role="tablist" aria-label="Shell">
+                                <button class="tab-btn active" data-tab="curl">cURL</button>
+                                <button class="tab-btn" data-tab="powershell">PowerShell</button>
+                            </div>
+                        </div>
+                        <div class="tab-content">
+                            <pre id="curl-example" class="code-example active"></pre>
+                            <pre id="powershell-example" class="code-example"></pre>
+                        </div>
+                    </div>
                 </div>
-                <button id="copy-example" class="copy-btn">Copy Command</button>
             </div>
             <div id="requests-container" class="requests-container" style="display: none;">
                 <div class="requests-content">
@@ -81,18 +128,26 @@
                     </div>
                     <div id="details-container" class="details">
                         <div class="section section-body">
-                            <div class="body-tabs">
-                                <button class="tab-btn active" data-tab="raw">Raw</button>
-                                <button class="tab-btn" data-tab="formatted">Formatted</button>
+                            <div class="section-head">
+                                <div class="body-tabs">
+                                    <button class="tab-btn active" data-tab="raw">Raw</button>
+                                    <button class="tab-btn" data-tab="formatted">Formatted</button>
+                                </div>
+                                <button id="copy-body" class="copy-btn btn btn-ghost btn-sm">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                                    Copy Request Body
+                                </button>
                             </div>
                             <div class="body-tab-content">
                                 <pre class="code-example active" id="request-body-raw"></pre>
                                 <div class="code-example" id="request-body-formatted"></div>
                             </div>
-                            <button id="copy-body" class="copy-btn">Copy Request Body</button>
                         </div>
-                        <div class="section">
-                            <table id="request-headers" class="headers-table"></table>
+                        <div class="section section-headers">
+                            <div class="section-head"><h3>Headers</h3></div>
+                            <div class="table-wrap">
+                                <table id="request-headers" class="headers-table"></table>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -102,13 +157,27 @@
     </div>
 
     <footer>
-        &copy; 2024 Tunnelite. Open source on
-        <a href="https://github.com/cristipufu/webhook-tester" target="_blank">GitHub</a>.
+        &copy; 2026 Tunnelite. Open source on
+        <a href="https://github.com/cristipufu/webhook-tester" target="_blank" rel="noopener noreferrer">GitHub</a>.
     </footer>
 
-    <div id="copy-popup" class="copy-popup">Copied!</div>
+    <dialog id="confirm-dialog" class="dialog" aria-labelledby="confirm-dialog-title">
+        <form method="dialog" class="dialog-card">
+            <div class="dialog-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/></svg>
+            </div>
+            <h3 id="confirm-dialog-title">Delete this webhook?</h3>
+            <p><code id="confirm-dialog-slug"></code> and its request history will be removed from this browser, and the URL will stop receiving requests.</p>
+            <div class="dialog-actions">
+                <button type="submit" value="cancel" class="btn btn-ghost" autofocus>Cancel</button>
+                <button type="submit" value="confirm" class="btn btn-danger">Delete webhook</button>
+            </div>
+        </form>
+    </dialog>
 
-    <div id="connection-status-popup" class="connection-status-popup">
+    <div id="copy-popup" class="copy-popup" role="status" aria-live="polite">Copied!</div>
+
+    <div id="connection-status-popup" class="connection-status-popup" role="status" aria-live="polite">
         <div class="connection-status-content">
             <span id="connection-status-icon" class="connection-status-icon">•</span>
             <span id="connection-status-text">Connected</span>
