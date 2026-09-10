@@ -19,6 +19,7 @@ const activeWebhookUrl = document.getElementById('active-webhook-url');
 const copyBodyButton = document.getElementById('copy-body');
 const confirmDialog = document.getElementById('confirm-dialog');
 const confirmDialogSlug = document.getElementById('confirm-dialog-slug');
+let pendingRemoval = null;
 
 const setSignalRConnection = (connection) => {
     signalRConnection = connection;
@@ -102,15 +103,23 @@ const confirmRemoveWebhook = (slug) => {
         }
         return;
     }
+    pendingRemoval = slug;
     confirmDialogSlug.textContent = slug;
-    confirmDialog.returnValue = '';
-    confirmDialog.addEventListener('close', () => {
-        if (confirmDialog.returnValue === 'confirm') {
-            removeWebhook(slug);
-        }
-    }, { once: true });
     confirmDialog.showModal();
 };
+
+if (confirmDialog) {
+    // The form has method="dialog": submitting closes the dialog, and the pressed button is the submitter.
+    confirmDialog.querySelector('form').addEventListener('submit', (event) => {
+        const confirmed = event.submitter && event.submitter.value === 'confirm';
+        const slug = pendingRemoval;
+        pendingRemoval = null;
+        if (confirmed && slug) {
+            removeWebhook(slug);
+        }
+    });
+    confirmDialog.addEventListener('cancel', () => { pendingRemoval = null; });
+}
 
 const removeWebhook = async (slug) => {
     webhooks = webhooks.filter(webhook => webhook.slug !== slug);

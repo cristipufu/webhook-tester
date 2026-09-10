@@ -92,14 +92,20 @@
                 </button>
             </div>
             <div id="waiting-for-events" class="waiting">
-                <div class="animal-art" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></svg>
+                <div class="waiting-intro">
+                    <div class="animal-art" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></svg>
+                    </div>
+                    <h2>Waiting for requests<span class="ellipsis" aria-hidden="true"></span></h2>
+                    <p>Send a POST request to your webhook URL using one of the following methods:</p>
+                    <button id="copy-example" class="copy-btn btn btn-ghost">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                        Copy Command
+                    </button>
                 </div>
-                <h2>Waiting for requests<span class="ellipsis" aria-hidden="true"></span></h2>
-                <p>Send a POST request to your webhook URL using one of the following methods:</p>
                 <div class="example">
                     <div class="terminal">
-                        <div class="terminal-bar" aria-hidden="false">
+                        <div class="terminal-bar">
                             <span class="dot" aria-hidden="true"></span><span class="dot" aria-hidden="true"></span><span class="dot" aria-hidden="true"></span>
                             <div class="tabs" role="tablist" aria-label="Shell">
                                 <button class="tab-btn active" data-tab="curl">cURL</button>
@@ -111,10 +117,6 @@
                             <pre id="powershell-example" class="code-example"></pre>
                         </div>
                     </div>
-                    <button id="copy-example" class="copy-btn btn btn-ghost">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-                        Copy Command
-                    </button>
                 </div>
             </div>
             <div id="requests-container" class="requests-container" style="display: none;">
