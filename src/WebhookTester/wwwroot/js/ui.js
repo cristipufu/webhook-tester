@@ -123,6 +123,7 @@ const renderWebhooks = (webhooks) => {
 
 const showWebhookDetails = (index, webhooks) => {
     const selectedWebhook = webhooks[index];
+    webhookList.querySelectorAll('li').forEach((li, i) => li.classList.toggle('active', i === index));
     updateExampleCommands(selectedWebhook.url);
     activeWebhookUrl.textContent = selectedWebhook.url;
 
@@ -164,12 +165,14 @@ const showRequests = (webhook) => {
                 <span class="request-time">${formattedTime}</span>
             </span>
         `;
+        li.dataset.id = request.id;
         li.onclick = () => showRequestDetails(request);
         requestList.appendChild(li);
     });
 };
 
 const showRequestDetails = (request) => {
+    requestList.querySelectorAll('li').forEach(li => li.classList.toggle('active', li.dataset.id === String(request.id)));
     renderHeadersTable(request.headers);
     const rawBody = request.body;
     const getHeader = (headers, name) => {
