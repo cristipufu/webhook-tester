@@ -192,41 +192,61 @@ header nav { display: flex; align-items: center; gap: 8px; }
     text-align: center; padding: 40px 24px;
 }
 .animal-art {
-    width: 72px; height: 72px; margin-bottom: 20px; border-radius: 20px;
+    position: relative; width: 72px; height: 72px; margin-bottom: 20px; border-radius: 20px;
     display: flex; align-items: center; justify-content: center;
     background: var(--accent-soft); border: 1px solid rgba(37, 99, 235, .18); color: var(--accent);
 }
 .animal-art svg { width: 34px; height: 34px; }
+/* "listening": two soft rings expanding out of the icon */
+.animal-art::before, .animal-art::after {
+    content: ""; position: absolute; inset: -1px; border-radius: inherit;
+    border: 2px solid var(--accent); opacity: 0; pointer-events: none;
+    animation: ping 2.8s cubic-bezier(0, 0, .2, 1) infinite;
+}
+.animal-art::after { animation-delay: 1.4s; }
+@keyframes ping {
+    0% { transform: scale(1); opacity: .45; }
+    75%, 100% { transform: scale(1.55); opacity: 0; }
+}
+.ellipsis::after { content: ""; display: inline-block; width: 1.2em; text-align: left; animation: dots 1.6s steps(4, end) infinite; }
+@keyframes dots {
+    0% { content: ""; }
+    25% { content: "."; }
+    50% { content: ".."; }
+    75%, 100% { content: "..."; }
+}
 .waiting h2 { margin: 0 0 8px; font-size: var(--fs-24); line-height: 1.2; letter-spacing: -.02em; font-weight: 700; }
 .waiting p { margin: 0 0 24px; color: var(--muted); max-width: 52ch; }
 .example { width: 100%; max-width: 760px; text-align: left; }
 
-/* ---------- Terminal (command examples) ---------- */
+/* ---------- Terminal (command examples), light ---------- */
 .terminal {
-    background: var(--code-bg); border: 1px solid var(--code-edge); border-radius: var(--radius-md);
+    background: var(--surface); border: 1px solid var(--border-strong); border-radius: var(--radius-md);
     box-shadow: var(--shadow-md); overflow: hidden; margin-bottom: 12px;
 }
 .terminal-bar {
     display: flex; align-items: center; gap: 8px; padding: 10px 14px;
-    border-bottom: 1px solid var(--code-border); background: rgba(255, 255, 255, .03);
+    background: var(--surface-2); border-bottom: 1px solid var(--border);
 }
 .terminal-bar .dot { width: 12px; height: 12px; border-radius: 50%; }
 .terminal-bar .dot:nth-child(1) { background: #ff5f57; }
 .terminal-bar .dot:nth-child(2) { background: #febc2e; }
 .terminal-bar .dot:nth-child(3) { background: #28c840; }
-.terminal-bar .tabs { margin: 0 0 0 auto; background: rgba(255, 255, 255, .06); }
-.terminal-bar .tab-btn { color: var(--code-muted); }
-.terminal-bar .tab-btn:hover { color: var(--code-text); }
-.terminal-bar .tab-btn.active { background: rgba(255, 255, 255, .12); color: #fff; box-shadow: none; }
+.terminal-bar .tabs { margin: 0 0 0 auto; background: rgba(15, 23, 42, .06); }
 .tab-content { padding: 16px 18px; }
 .code-example {
     display: none; margin: 0;
-    font-family: var(--mono); font-size: var(--fs-13); line-height: 1.65; color: var(--code-text);
-    white-space: pre-wrap; word-break: break-all;
+    font-family: var(--mono); font-size: var(--fs-13); line-height: 1.7; color: var(--text);
+    white-space: pre-wrap; word-break: break-word;
 }
 .code-example.active { display: block; }
-#curl-example::before { content: "$ "; color: var(--code-amber); user-select: none; }
-#powershell-example::before { content: "PS> "; color: var(--code-amber); user-select: none; }
+#curl-example::before { content: "$ "; color: var(--accent); font-weight: 700; user-select: none; }
+#powershell-example::before { content: "PS> "; color: var(--accent); font-weight: 700; user-select: none; }
+.code-example .cmd { color: var(--accent); font-weight: 600; }
+.code-example .flag { color: #7c3aed; }
+.code-example .var { color: #b45309; }
+.code-example .str { color: #0f766e; }
+.code-example .cont { color: var(--faint); }
 
 /* ---------- Tabs ---------- */
 .tabs, .body-tabs { display: inline-flex; gap: 4px; padding: 4px; border-radius: var(--radius-btn); background: var(--surface-2); }
@@ -342,7 +362,8 @@ footer {
 @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.08); } }
 
 @media (prefers-reduced-motion: reduce) {
-    .loading-emoji, .connection-status-reconnecting .connection-status-icon { animation: none; }
+    .loading-emoji, .connection-status-reconnecting .connection-status-icon, .animal-art::before, .animal-art::after { animation: none; }
+    .ellipsis::after { animation: none; content: "..."; }
 }
 
 /* ---------- Responsive ---------- */
